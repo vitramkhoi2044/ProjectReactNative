@@ -41,7 +41,7 @@ class RenderSlider extends Component {
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-start', margin: 10, marginTop: 0 }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 25 }}>{home.product}</Text>
                     </View>
-                    <SliderBox images={images} parentWidth={this.state.width - 30} style={{height: this.state.width - 30}} />
+                    <SliderBox images={images} parentWidth={this.state.width - 30}  />
                 </Card>
             </Animatable.View >
         );

@@ -130,15 +130,16 @@ class ModalComment extends Component {
     render() {
         return (
             <View style={{ justifyContent: 'center', margin: 20 }}>
+                <Text style={{ fontSize: 30, textAlign: 'center', fontWeight: 'bold', marginBottom: 20 }}>Nhận Xét</Text>
                 <Rating startingValue={this.state.rating} showRating={true}
                     onFinishRating={(value) => this.setState({ rating: value })} />
                 <View style={{ height: 20 }} />
-                <Input value={this.state.author} placeholder='Author' leftIcon={{ name: 'user-o', type: 'font-awesome' }}
+                <Input value={this.state.author} placeholder='Tên tác giả' leftIcon={{ name: 'user-o', type: 'font-awesome' }}
                     onChangeText={(text) => this.setState({ author: text })} />
-                <Input value={this.state.comment} placeholder='Comment' leftIcon={{ name: 'comment-o', type: 'font-awesome' }}
+                <Input value={this.state.comment} placeholder='Nhận xét' leftIcon={{ name: 'comment-o', type: 'font-awesome' }}
                     onChangeText={(text) => this.setState({ comment: text })} />
                 <View style={{ flexDirection: 'row', marginBottom: 30 }}>
-                    <Image style={{ width: 80, height: 60, marginRight:2 }} source={{ uri: this.state.imageUrl }} />
+                    <Image style={{ width: 80, height: 60, marginRight: 2 }} source={{ uri: this.state.imageUrl }} />
                     <View style={{ justifyContent: 'center' }}>
                         <Button title='Camera' color='#7cc' onPress={() => this.getImageFromCamera()} />
                     </View>
@@ -163,7 +164,7 @@ class ModalComment extends Component {
         }
     }
     handleSubmit() {
-        this.props.postComment(this.props.productId, this.state.rating, this.state.author, this.state.comment,this.props.product.image);
+        this.props.postComment(this.props.productId, this.state.rating, this.state.author, this.state.comment, this.props.product.image);
         this.props.onPressCancel();
     }
 }
