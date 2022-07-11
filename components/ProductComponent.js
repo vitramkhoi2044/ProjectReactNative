@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, FlatList } from 'react-native';
-import { Image, Card, Icon, Button, ListItem } from 'react-native-elements';
+import { Image, Card, Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native-virtualized-view';
 import * as Animatable from 'react-native-animatable';
 
@@ -34,7 +34,7 @@ class Product extends Component {
             return (
                 <ScrollView>
                     <FlatList data={this.props.products.products}
-                        style={{ flexDirection: 'row', justifyContent: 'space-around', flexWrap: 'wrap' }}
+                        style={{ flexDirection: 'row', justifyContent: 'space-around', flexWrap: 'wrap', marginBottom: 20 }}
                         renderItem={({ item, index }) => this.renderProductItem(item, index)}
                         keyExtractor={item => item.id.toString()} />
                 </ScrollView>
@@ -55,7 +55,7 @@ class Product extends Component {
                                 style={{ width: 130, height: 130 }}
                                 onPress={() => navigate('Productdetail', { productId: item.id })} />
                         </View>
-                        <Card.Title>{item.name}</Card.Title>
+                        <Card.Title style={{ marginTop: 7 }}>{item.name}</Card.Title>
                         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                             <Text style={{ fontWeight: 'bold', textAlign: 'center', fontSize: 15, color: 'red' }}>{item.price} VND</Text>
                         </View>

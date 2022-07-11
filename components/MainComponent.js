@@ -7,7 +7,7 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerI
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import About from "./AboutUsComponent";
-import Home from "./HomeComponent/Home";
+import Home from "./HomeComponent";
 import Contact from './ContactComponent';
 import Productdetail from './ProductdetailComponent';
 import Product from './ProductComponent';
@@ -15,10 +15,12 @@ import Cart from './CartComponent';
 
 // redux
 import { connect } from 'react-redux';
-import { fetchProducts, fetchMembers } from '../redux/ActionCreators';
+import { fetchProducts, fetchMembers, fetchComments, fetchHome } from '../redux/ActionCreators';
 const mapDispatchToProps = (dispatch) => ({
     fetchProducts: () => dispatch(fetchProducts()),
     fetchMembers: () => dispatch(fetchMembers()),
+    fetchComments: () => dispatch(fetchComments()),
+    fetchHome: () => dispatch(fetchHome()),
 });
 
 function AboutNavigatorScreen() {
@@ -174,6 +176,8 @@ class Main extends Component {
     componentDidMount() {
         this.props.fetchProducts();
         this.props.fetchMembers();
+        this.props.fetchComments();
+        this.props.fetchHome();
     }
 }
 

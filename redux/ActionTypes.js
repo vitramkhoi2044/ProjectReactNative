@@ -12,3 +12,13 @@ export const DELETE_CART = 'DELETE_CART';
 export const MEMBERS_LOADING = 'MEMBERS_LOADING';
 export const ADD_MEMBERS = 'ADD_MEMBERS';
 export const MEMBERS_FAILED = 'MEMBERS_FAILED';
+
+//comment
+export const ADD_COMMENTS = 'ADD_COMMENTS';
+export const COMMENTS_FAILED = 'COMMENTS_FAILED';
+export const ADD_COMMENT = 'ADD_COMMENT';
+
+//home
+export const HOME_LOADING = 'HOME_LOADING';
+export const ADD_HOME = 'ADD_HOME';
+export const HOME_FAILED = 'HOME_FAILED';
