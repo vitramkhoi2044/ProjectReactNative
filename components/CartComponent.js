@@ -4,6 +4,7 @@ import { ListItem, Avatar, Icon, Input, Divider, Rating } from 'react-native-ele
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { ScrollView } from 'react-native-virtualized-view';
 import * as Animatable from 'react-native-animatable';
+import * as Notifications from 'expo-notifications';
 
 import Loading from './LoadingComponent';
 
@@ -63,14 +64,14 @@ class ModalCheckout extends Component {
                 <Input value={this.state.address} placeholder='Địa chỉ'
                     onChangeText={(text) => this.setState({ address: text })} />
                 <Divider style={{ marginBottom: 20 }} />
-                <ScrollView style={{ height:180}}>
+                <ScrollView style={{ height: 180 }}>
                     <SwipeListView data={product}
                         renderItem={({ item, index }) => this.renderMenuItem(item, index)}
                         renderHiddenItem={({ item, index }) => this.renderHiddenItem(item, index)}
                         keyExtractor={(item) => item.id.toString()}
                         rightOpenValue={-100} />
                 </ScrollView>
-                <Divider/>
+                <Divider />
                 <View style={{ flexDirection: 'row', marginBottom: 20 }}>
                     <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Tổng cộng: </Text>
                     <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{this.totalPrice(product)} VND</Text>
@@ -119,22 +120,23 @@ class ModalCheckout extends Component {
     handleSubmit(product) {
         Alert.alert(
             'Xác nhận thanh toán',
-            'Họ và tên: '+this.state.fullName +'\n'+
-            'Giới tính: '+this.state.gender +'\n'+
-            'Ngày sinh: '+this.state.dateOfBirth +'\n'+
-            'Số điện thoại: '+this.state.phoneNumber +'\n'+
-            'Email: '+this.state.email +'\n'+
-            'Địa chỉ: '+this.state.address +'\n'+
-            'Tổng tiền: '+this.totalPrice(product)+' VND',
+            'Họ và tên: ' + this.state.fullName + '\n' +
+            'Giới tính: ' + this.state.gender + '\n' +
+            'Ngày sinh: ' + this.state.dateOfBirth + '\n' +
+            'Số điện thoại: ' + this.state.phoneNumber + '\n' +
+            'Email: ' + this.state.email + '\n' +
+            'Địa chỉ: ' + this.state.address + '\n' +
+            'Tổng tiền: ' + this.totalPrice(product) + ' VND',
             [
                 { text: 'Cancel', onPress: () => { /* nothing */ } },
-                { text: 'Payment', onPress: () => { this.handlePayment(product)} }
+                { text: 'Payment', onPress: () => { this.handlePayment(product) } }
             ]
         );
-        
+
     }
-    handlePayment(product){
-        for(let i = 0; i < product.length; i++) {
+    handlePayment(product) {
+        this.presentLocalNotification();
+        for (let i = 0; i < product.length; i++) {
             this.props.onPressDeleteCart(product[i].id)
         }
         this.props.onPressCancel();
@@ -172,6 +174,24 @@ class ModalCheckout extends Component {
             return String(j) + String(h) + String(g) + "." + String(f) + String(e) + String(d) + "." + String(c) + String(b) + String(a);
         }
         return String(h) + String(g) + "." + String(f) + String(e) + String(d) + "." + String(c) + String(b) + String(a);
+    }
+    async presentLocalNotification() {
+        const { status } = await Notifications.requestPermissionsAsync();
+        if (status === 'granted') {
+            Notifications.setNotificationHandler({
+                handleNotification: async () => ({ shouldShowAlert: true, shouldPlaySound: true, shouldSetBadge: true })
+            });
+            Notifications.scheduleNotificationAsync({
+                content: {
+                    title: 'Đơn hàng thành công',
+                    body: 'Đơn hàng của '+this.state.fullName+' đã đặt thành công. Số điện thoại của bạn là: '
+                    +this.state.phoneNumber+' và đơn hàng sẽ được giao đến địa chỉ: '+this.state.address,
+                    sound: true,
+                    vibrate: true
+                },
+                trigger: null
+            });
+        }
     }
 }
 

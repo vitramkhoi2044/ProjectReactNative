@@ -215,7 +215,7 @@ class RenderComments extends Component {
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{item.author}</Text>
                 <Rating startingValue={item.rating} imageSize={12} readonly style={{ flexDirection: 'row', marginLeft: 10, marginTop: 3 }} />
                 <Text style={{ fontSize: 14, marginTop: 5, marginLeft: 10 }}>{item.comment}</Text>
-                <Text style={{ fontSize: 14, marginTop: 5, marginLeft: 10 }}>{item.date}</Text>
+                <Text style={{ fontSize: 14, marginTop: 5, marginLeft: 10 }}>{String(item.date).split(/([T])/)[0]}</Text>
                 <Image source={{ uri: baseUrl + item.image }} style={{ width: 50, height: 50, marginTop: 10, marginLeft: 10 }} />
             </View>
         );
